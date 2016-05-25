@@ -708,7 +708,11 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
           var windowName = (config.cordova || UA.indexOf('CriOS') > -1) ? '_blank' : name;
 
           Popup.popupWindow = $window.open(url, windowName, stringifiedOptions);
-
+          
+          if(!Popup.popupWindow || Popup.popupWindow.closed || typeof Popup.popupWindow.closed=='undefined') { 
+            $window.location = url;
+          }
+          
           $window.popup = Popup.popupWindow;
 
           if (Popup.popupWindow && Popup.popupWindow.focus) {
